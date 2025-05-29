@@ -80,87 +80,6 @@ function A9(fun, a, b, c, d, e, f, g, h, i) {
 console.warn('Compiled in DEV mode. Follow the advice at https://elm-lang.org/0.19.1/optimize for better performance and smaller assets.');
 
 
-var _List_Nil_UNUSED = { $: 0 };
-var _List_Nil = { $: '[]' };
-
-function _List_Cons_UNUSED(hd, tl) { return { $: 1, a: hd, b: tl }; }
-function _List_Cons(hd, tl) { return { $: '::', a: hd, b: tl }; }
-
-
-var _List_cons = F2(_List_Cons);
-
-function _List_fromArray(arr)
-{
-	var out = _List_Nil;
-	for (var i = arr.length; i--; )
-	{
-		out = _List_Cons(arr[i], out);
-	}
-	return out;
-}
-
-function _List_toArray(xs)
-{
-	for (var out = []; xs.b; xs = xs.b) // WHILE_CONS
-	{
-		out.push(xs.a);
-	}
-	return out;
-}
-
-var _List_map2 = F3(function(f, xs, ys)
-{
-	for (var arr = []; xs.b && ys.b; xs = xs.b, ys = ys.b) // WHILE_CONSES
-	{
-		arr.push(A2(f, xs.a, ys.a));
-	}
-	return _List_fromArray(arr);
-});
-
-var _List_map3 = F4(function(f, xs, ys, zs)
-{
-	for (var arr = []; xs.b && ys.b && zs.b; xs = xs.b, ys = ys.b, zs = zs.b) // WHILE_CONSES
-	{
-		arr.push(A3(f, xs.a, ys.a, zs.a));
-	}
-	return _List_fromArray(arr);
-});
-
-var _List_map4 = F5(function(f, ws, xs, ys, zs)
-{
-	for (var arr = []; ws.b && xs.b && ys.b && zs.b; ws = ws.b, xs = xs.b, ys = ys.b, zs = zs.b) // WHILE_CONSES
-	{
-		arr.push(A4(f, ws.a, xs.a, ys.a, zs.a));
-	}
-	return _List_fromArray(arr);
-});
-
-var _List_map5 = F6(function(f, vs, ws, xs, ys, zs)
-{
-	for (var arr = []; vs.b && ws.b && xs.b && ys.b && zs.b; vs = vs.b, ws = ws.b, xs = xs.b, ys = ys.b, zs = zs.b) // WHILE_CONSES
-	{
-		arr.push(A5(f, vs.a, ws.a, xs.a, ys.a, zs.a));
-	}
-	return _List_fromArray(arr);
-});
-
-var _List_sortBy = F2(function(f, xs)
-{
-	return _List_fromArray(_List_toArray(xs).sort(function(a, b) {
-		return _Utils_cmp(f(a), f(b));
-	}));
-});
-
-var _List_sortWith = F2(function(f, xs)
-{
-	return _List_fromArray(_List_toArray(xs).sort(function(a, b) {
-		var ord = A2(f, a, b);
-		return ord === $elm$core$Basics$EQ ? 0 : ord === $elm$core$Basics$LT ? -1 : 1;
-	}));
-});
-
-
-
 var _JsArray_empty = [];
 
 function _JsArray_singleton(value)
@@ -790,6 +709,87 @@ function _Utils_ap(xs, ys)
 	}
 	return root;
 }
+
+
+
+var _List_Nil_UNUSED = { $: 0 };
+var _List_Nil = { $: '[]' };
+
+function _List_Cons_UNUSED(hd, tl) { return { $: 1, a: hd, b: tl }; }
+function _List_Cons(hd, tl) { return { $: '::', a: hd, b: tl }; }
+
+
+var _List_cons = F2(_List_Cons);
+
+function _List_fromArray(arr)
+{
+	var out = _List_Nil;
+	for (var i = arr.length; i--; )
+	{
+		out = _List_Cons(arr[i], out);
+	}
+	return out;
+}
+
+function _List_toArray(xs)
+{
+	for (var out = []; xs.b; xs = xs.b) // WHILE_CONS
+	{
+		out.push(xs.a);
+	}
+	return out;
+}
+
+var _List_map2 = F3(function(f, xs, ys)
+{
+	for (var arr = []; xs.b && ys.b; xs = xs.b, ys = ys.b) // WHILE_CONSES
+	{
+		arr.push(A2(f, xs.a, ys.a));
+	}
+	return _List_fromArray(arr);
+});
+
+var _List_map3 = F4(function(f, xs, ys, zs)
+{
+	for (var arr = []; xs.b && ys.b && zs.b; xs = xs.b, ys = ys.b, zs = zs.b) // WHILE_CONSES
+	{
+		arr.push(A3(f, xs.a, ys.a, zs.a));
+	}
+	return _List_fromArray(arr);
+});
+
+var _List_map4 = F5(function(f, ws, xs, ys, zs)
+{
+	for (var arr = []; ws.b && xs.b && ys.b && zs.b; ws = ws.b, xs = xs.b, ys = ys.b, zs = zs.b) // WHILE_CONSES
+	{
+		arr.push(A4(f, ws.a, xs.a, ys.a, zs.a));
+	}
+	return _List_fromArray(arr);
+});
+
+var _List_map5 = F6(function(f, vs, ws, xs, ys, zs)
+{
+	for (var arr = []; vs.b && ws.b && xs.b && ys.b && zs.b; vs = vs.b, ws = ws.b, xs = xs.b, ys = ys.b, zs = zs.b) // WHILE_CONSES
+	{
+		arr.push(A5(f, vs.a, ws.a, xs.a, ys.a, zs.a));
+	}
+	return _List_fromArray(arr);
+});
+
+var _List_sortBy = F2(function(f, xs)
+{
+	return _List_fromArray(_List_toArray(xs).sort(function(a, b) {
+		return _Utils_cmp(f(a), f(b));
+	}));
+});
+
+var _List_sortWith = F2(function(f, xs)
+{
+	return _List_fromArray(_List_toArray(xs).sort(function(a, b) {
+		var ord = A2(f, a, b);
+		return ord === $elm$core$Basics$EQ ? 0 : ord === $elm$core$Basics$LT ? -1 : 1;
+	}));
+});
 
 
 
@@ -4416,12 +4416,11 @@ function _Time_getZoneName()
 		callback(_Scheduler_succeed(name));
 	});
 }
+var $author$project$Main$NoOp = {$: 'NoOp'};
 var $author$project$Main$Tick = F2(
 	function (a, b) {
 		return {$: 'Tick', a: a, b: b};
 	});
-var $elm$core$Basics$EQ = {$: 'EQ'};
-var $elm$core$Basics$LT = {$: 'LT'};
 var $elm$core$List$cons = _List_cons;
 var $elm$core$Elm$JsArray$foldr = _JsArray_foldr;
 var $elm$core$Array$foldr = F3(
@@ -4499,15 +4498,11 @@ var $elm$core$Set$toList = function (_v0) {
 	var dict = _v0.a;
 	return $elm$core$Dict$keys(dict);
 };
+var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
+var $elm$core$Basics$LT = {$: 'LT'};
 var $MacCASOutreach$graphicsvg$GraphicSVG$App$InitTime = function (a) {
 	return {$: 'InitTime', a: a};
-};
-var $MacCASOutreach$graphicsvg$GraphicSVG$App$URLChanged = function (a) {
-	return {$: 'URLChanged', a: a};
-};
-var $MacCASOutreach$graphicsvg$GraphicSVG$App$URLRequest = function (a) {
-	return {$: 'URLRequest', a: a};
 };
 var $MacCASOutreach$graphicsvg$GraphicSVG$App$UserMsg = function (a) {
 	return {$: 'UserMsg', a: a};
@@ -8193,7 +8188,6 @@ var $MacCASOutreach$graphicsvg$GraphicSVG$App$keyCheckerFunction = F2(
 			return $MacCASOutreach$graphicsvg$GraphicSVG$App$Up;
 		}
 	});
-var $elm$browser$Browser$Navigation$load = _Browser_load;
 var $elm$core$Dict$filter = F2(
 	function (isGood, dict) {
 		return A3(
@@ -8281,7 +8275,7 @@ var $MacCASOutreach$graphicsvg$GraphicSVG$App$subtractTimeSeconds = F2(
 	function (t1, t0) {
 		return ($elm$time$Time$posixToMillis(t1) - $elm$time$Time$posixToMillis(t0)) / 1000;
 	});
-var $MacCASOutreach$graphicsvg$GraphicSVG$App$hiddenGameUpdate = F3(
+var $MacCASOutreach$graphicsvg$GraphicSVG$App$hiddenTickUpdate = F3(
 	function (userUpdate, msg, _v0) {
 		var userModel = _v0.a;
 		var hiddenModel = _v0.b;
@@ -8289,11 +8283,12 @@ var $MacCASOutreach$graphicsvg$GraphicSVG$App$hiddenGameUpdate = F3(
 		switch (msg.$) {
 			case 'UserMsg':
 				var userMsg = msg.a;
+				var _v2 = A2(userUpdate, userMsg, userModel);
+				var newUserModel = _v2.a;
+				var newUserCmds = _v2.b;
 				return _Utils_Tuple2(
-					_Utils_Tuple2(
-						A2(userUpdate, userMsg, userModel),
-						hiddenModel),
-					$elm$core$Platform$Cmd$none);
+					_Utils_Tuple2(newUserModel, hiddenModel),
+					A2($elm$core$Platform$Cmd$map, $MacCASOutreach$graphicsvg$GraphicSVG$App$UserMsg, newUserCmds));
 			case 'InitTime':
 				var t = msg.a;
 				return _Utils_Tuple2(
@@ -8315,22 +8310,24 @@ var $MacCASOutreach$graphicsvg$GraphicSVG$App$hiddenGameUpdate = F3(
 					$MacCASOutreach$graphicsvg$GraphicSVG$App$Key('a'),
 					$MacCASOutreach$graphicsvg$GraphicSVG$App$Key('d'));
 				var arrowKeys = A5($MacCASOutreach$graphicsvg$GraphicSVG$App$arrowChecker, keyChecker, $MacCASOutreach$graphicsvg$GraphicSVG$App$UpArrow, $MacCASOutreach$graphicsvg$GraphicSVG$App$DownArrow, $MacCASOutreach$graphicsvg$GraphicSVG$App$LeftArrow, $MacCASOutreach$graphicsvg$GraphicSVG$App$RightArrow);
-				var newModel = A2(
+				var _v3 = A2(
 					userUpdate,
 					A2(
 						hiddenModel.tick,
 						timeInSeconds,
 						_Utils_Tuple3(keyChecker, arrowKeys, wasd)),
 					userModel);
+				var newUserModel = _v3.a;
+				var newUserCmds = _v3.b;
 				return _Utils_Tuple2(
 					_Utils_Tuple2(
-						newModel,
+						newUserModel,
 						_Utils_update(
 							hiddenModel,
 							{
 								keys: $MacCASOutreach$graphicsvg$GraphicSVG$App$maintainKeyDict(hiddenModel.keys)
 							})),
-					$elm$core$Platform$Cmd$none);
+					A2($elm$core$Platform$Cmd$map, $MacCASOutreach$graphicsvg$GraphicSVG$App$UserMsg, newUserCmds));
 			case 'KeyDown':
 				var keyCode = msg.a;
 				return _Utils_Tuple2(
@@ -8353,20 +8350,7 @@ var $MacCASOutreach$graphicsvg$GraphicSVG$App$hiddenGameUpdate = F3(
 								keys: A3($MacCASOutreach$graphicsvg$GraphicSVG$App$insertKeyDict, hiddenModel.keys, keyCode, $MacCASOutreach$graphicsvg$GraphicSVG$App$WentUp)
 							})),
 					$elm$core$Platform$Cmd$none);
-			case 'URLRequest':
-				var urlreq = msg.a;
-				if (urlreq.$ === 'External') {
-					var url = urlreq.a;
-					return _Utils_Tuple2(
-						_Utils_Tuple2(userModel, hiddenModel),
-						$elm$browser$Browser$Navigation$load(url));
-				} else {
-					return _Utils_Tuple2(
-						_Utils_Tuple2(userModel, hiddenModel),
-						$elm$core$Platform$Cmd$none);
-				}
 			default:
-				var url = msg.a;
 				return _Utils_Tuple2(
 					_Utils_Tuple2(userModel, hiddenModel),
 					$elm$core$Platform$Cmd$none);
@@ -8775,49 +8759,80 @@ var $MacCASOutreach$graphicsvg$GraphicSVG$App$subs = _List_fromArray(
 			A2($elm$json$Json$Decode$field, 'keyCode', $elm$json$Json$Decode$int))),
 		$elm$browser$Browser$Events$onAnimationFrame($MacCASOutreach$graphicsvg$GraphicSVG$App$TickTime)
 	]);
-var $MacCASOutreach$graphicsvg$GraphicSVG$App$gameApp = F2(
+var $MacCASOutreach$graphicsvg$GraphicSVG$App$appWithTick = F2(
 	function (tickMsg, userApp) {
 		var userView = userApp.view;
+		var userUrlReq = userApp.onUrlRequest;
+		var userUrlChange = userApp.onUrlChange;
 		var userUpdate = userApp.update;
-		var userTitle = userApp.title;
-		var userInit = userApp.model;
+		var userSubs = userApp.subscriptions;
+		var userInit = userApp.init;
 		return $MacCASOutreach$graphicsvg$GraphicSVG$app(
 			{
 				init: F3(
-					function (_v0, _v1, navKey) {
+					function (flags, url, navKey) {
+						var userInitModel = A3(userInit, flags, url, navKey).a;
+						var userInitCmds = A3(userInit, flags, url, navKey).b;
 						return _Utils_Tuple2(
 							_Utils_Tuple2(
-								userInit,
+								userInitModel,
 								A2($MacCASOutreach$graphicsvg$GraphicSVG$App$initHiddenModel, tickMsg, navKey)),
-							A2($elm$core$Task$perform, $MacCASOutreach$graphicsvg$GraphicSVG$App$InitTime, $elm$time$Time$now));
+							$elm$core$Platform$Cmd$batch(
+								_List_fromArray(
+									[
+										A2($elm$core$Task$perform, $MacCASOutreach$graphicsvg$GraphicSVG$App$InitTime, $elm$time$Time$now),
+										A2($elm$core$Platform$Cmd$map, $MacCASOutreach$graphicsvg$GraphicSVG$App$UserMsg, userInitCmds)
+									])));
 					}),
-				onUrlChange: $MacCASOutreach$graphicsvg$GraphicSVG$App$URLChanged,
-				onUrlRequest: $MacCASOutreach$graphicsvg$GraphicSVG$App$URLRequest,
-				subscriptions: function (_v2) {
-					return $elm$core$Platform$Sub$batch($MacCASOutreach$graphicsvg$GraphicSVG$App$subs);
+				onUrlChange: A2($elm$core$Basics$composeL, $MacCASOutreach$graphicsvg$GraphicSVG$App$UserMsg, userUrlChange),
+				onUrlRequest: A2($elm$core$Basics$composeL, $MacCASOutreach$graphicsvg$GraphicSVG$App$UserMsg, userUrlReq),
+				subscriptions: function (_v0) {
+					var userModel = _v0.a;
+					return $elm$core$Platform$Sub$batch(
+						A2(
+							$elm$core$List$cons,
+							A2(
+								$elm$core$Platform$Sub$map,
+								$MacCASOutreach$graphicsvg$GraphicSVG$App$UserMsg,
+								userSubs(userModel)),
+							$MacCASOutreach$graphicsvg$GraphicSVG$App$subs));
 				},
-				update: $MacCASOutreach$graphicsvg$GraphicSVG$App$hiddenGameUpdate(userUpdate),
-				view: function (_v3) {
-					var userModel = _v3.a;
+				update: $MacCASOutreach$graphicsvg$GraphicSVG$App$hiddenTickUpdate(userUpdate),
+				view: function (_v1) {
+					var userModel = _v1.a;
+					var userViewE = userView(userModel);
 					return {
-						body: A2(
-							$MacCASOutreach$graphicsvg$GraphicSVG$mapCollage,
-							$MacCASOutreach$graphicsvg$GraphicSVG$App$UserMsg,
-							userView(userModel)),
-						title: userApp.title
+						body: A2($MacCASOutreach$graphicsvg$GraphicSVG$mapCollage, $MacCASOutreach$graphicsvg$GraphicSVG$App$UserMsg, userViewE.body),
+						title: userViewE.title
 					};
 				}
 			});
 	});
-var $author$project$Main$init = {text: 'Hello from Elm'};
+var $author$project$Main$init = F3(
+	function (_v0, _v1, _v2) {
+		return _Utils_Tuple2(
+			{text: 'Hello from Elm'},
+			$elm$core$Platform$Cmd$none);
+	});
+var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
+var $author$project$Main$subscriptions = function (_v0) {
+	return $elm$core$Platform$Sub$none;
+};
+var $elm$json$Json$Encode$string = _Json_wrap;
+var $author$project$Main$sendSpeech = _Platform_outgoingPort('sendSpeech', $elm$json$Json$Encode$string);
 var $author$project$Main$update = F2(
 	function (msg, model) {
-		if (msg.$ === 'Send') {
-			return model;
-		} else {
-			var _v1 = msg.b;
-			var keys = _v1.a;
-			return model;
+		switch (msg.$) {
+			case 'Send':
+				return _Utils_Tuple2(
+					model,
+					$author$project$Main$sendSpeech(model.text));
+			case 'Tick':
+				var _v1 = msg.b;
+				var keys = _v1.a;
+				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+			default:
+				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 		}
 	});
 var $MacCASOutreach$graphicsvg$GraphicSVG$collage = F3(
@@ -8853,25 +8868,39 @@ var $MacCASOutreach$graphicsvg$GraphicSVG$solid = function (th) {
 	return $MacCASOutreach$graphicsvg$GraphicSVG$Secret$Unbroken(th);
 };
 var $author$project$Main$view = function (model) {
-	return A3(
-		$MacCASOutreach$graphicsvg$GraphicSVG$collage,
-		500,
-		500,
-		_List_fromArray(
-			[
-				A3(
-				$MacCASOutreach$graphicsvg$GraphicSVG$outlined,
-				$MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
-				$MacCASOutreach$graphicsvg$GraphicSVG$green,
-				A2(
-					$MacCASOutreach$graphicsvg$GraphicSVG$line,
-					_Utils_Tuple2(0, 0),
-					_Utils_Tuple2(250, 0)))
-			]));
+	return {
+		body: A3(
+			$MacCASOutreach$graphicsvg$GraphicSVG$collage,
+			500,
+			500,
+			_List_fromArray(
+				[
+					A3(
+					$MacCASOutreach$graphicsvg$GraphicSVG$outlined,
+					$MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
+					$MacCASOutreach$graphicsvg$GraphicSVG$green,
+					A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$line,
+						_Utils_Tuple2(0, 0),
+						_Utils_Tuple2(250, 0)))
+				])),
+		title: 'App'
+	};
 };
 var $author$project$Main$main = A2(
-	$MacCASOutreach$graphicsvg$GraphicSVG$App$gameApp,
+	$MacCASOutreach$graphicsvg$GraphicSVG$App$appWithTick,
 	$author$project$Main$Tick,
-	{model: $author$project$Main$init, title: 'Title', update: $author$project$Main$update, view: $author$project$Main$view});
+	{
+		init: $author$project$Main$init,
+		onUrlChange: function (_v0) {
+			return $author$project$Main$NoOp;
+		},
+		onUrlRequest: function (_v1) {
+			return $author$project$Main$NoOp;
+		},
+		subscriptions: $author$project$Main$subscriptions,
+		update: $author$project$Main$update,
+		view: $author$project$Main$view
+	});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
