@@ -8808,64 +8808,638 @@ var $MacCASOutreach$graphicsvg$GraphicSVG$App$appWithTick = F2(
 				}
 			});
 	});
+var $author$project$Main$SZip = F3(
+	function (a, b, c) {
+		return {$: 'SZip', a: a, b: b, c: c};
+	});
+var $elm$json$Json$Encode$string = _Json_wrap;
+var $author$project$Main$sendSpeech = _Platform_outgoingPort('sendSpeech', $elm$json$Json$Encode$string);
 var $author$project$Main$init = F3(
 	function (_v0, _v1, _v2) {
 		return _Utils_Tuple2(
-			{text: 'Hello from Elm'},
-			$elm$core$Platform$Cmd$none);
+			{
+				qZip: A3(
+					$author$project$Main$SZip,
+					_List_Nil,
+					'The',
+					_List_fromArray(
+						['bunny', 'is', 'red'])),
+				time: 0.0
+			},
+			$author$project$Main$sendSpeech('The'));
 	});
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
 var $author$project$Main$subscriptions = function (_v0) {
 	return $elm$core$Platform$Sub$none;
 };
-var $elm$json$Json$Encode$string = _Json_wrap;
-var $author$project$Main$sendSpeech = _Platform_outgoingPort('sendSpeech', $elm$json$Json$Encode$string);
+var $MacCASOutreach$graphicsvg$GraphicSVG$App$Backspace = {$: 'Backspace'};
+var $MacCASOutreach$graphicsvg$GraphicSVG$App$Delete = {$: 'Delete'};
+var $author$project$Main$sBackspace = function (_v0) {
+	var before = _v0.a;
+	var current = _v0.b;
+	var after = _v0.c;
+	if (!before.b) {
+		return A3($author$project$Main$SZip, before, current, after);
+	} else {
+		var a = before.a;
+		var rest = before.b;
+		return A3($author$project$Main$SZip, rest, a, after);
+	}
+};
+var $author$project$Main$sDelete = function (_v0) {
+	var before = _v0.a;
+	var current = _v0.b;
+	var after = _v0.c;
+	if (!after.b) {
+		return A3($author$project$Main$SZip, before, current, after);
+	} else {
+		var a = after.a;
+		var rest = after.b;
+		return A3($author$project$Main$SZip, before, a, rest);
+	}
+};
+var $author$project$Main$sLeft = function (_v0) {
+	var before = _v0.a;
+	var current = _v0.b;
+	var after = _v0.c;
+	if (!before.b) {
+		return A3($author$project$Main$SZip, before, current, after);
+	} else {
+		var a = before.a;
+		var rest = before.b;
+		return A3(
+			$author$project$Main$SZip,
+			rest,
+			a,
+			A2($elm$core$List$cons, current, after));
+	}
+};
+var $author$project$Main$sRight = function (_v0) {
+	var before = _v0.a;
+	var current = _v0.b;
+	var after = _v0.c;
+	if (!after.b) {
+		return A3($author$project$Main$SZip, before, current, after);
+	} else {
+		var a = after.a;
+		var rest = after.b;
+		return A3(
+			$author$project$Main$SZip,
+			A2($elm$core$List$cons, current, before),
+			a,
+			rest);
+	}
+};
 var $author$project$Main$update = F2(
 	function (msg, model) {
-		switch (msg.$) {
-			case 'Send':
-				return _Utils_Tuple2(
-					model,
-					$author$project$Main$sendSpeech(model.text));
-			case 'Tick':
-				var _v1 = msg.b;
-				var keys = _v1.a;
-				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-			default:
-				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+		if (msg.$ === 'Tick') {
+			var t = msg.a;
+			var _v1 = msg.b;
+			var getKeyState = _v1.a;
+			var _v2 = function () {
+				var _v3 = model.qZip;
+				var b = _v3.a;
+				var c = _v3.b;
+				var a = _v3.c;
+				return _Utils_Tuple3(b, c, a);
+			}();
+			var before = _v2.a;
+			var current = _v2.b;
+			var after = _v2.c;
+			if (_Utils_eq(
+				getKeyState($MacCASOutreach$graphicsvg$GraphicSVG$App$RightArrow),
+				$MacCASOutreach$graphicsvg$GraphicSVG$App$JustDown)) {
+				if (!after.b) {
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								qZip: $author$project$Main$sRight(model.qZip),
+								time: t
+							}),
+						$author$project$Main$sendSpeech(current));
+				} else {
+					var x = after.a;
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								qZip: $author$project$Main$sRight(model.qZip),
+								time: t
+							}),
+						$author$project$Main$sendSpeech(x));
+				}
+			} else {
+				if (_Utils_eq(
+					getKeyState($MacCASOutreach$graphicsvg$GraphicSVG$App$LeftArrow),
+					$MacCASOutreach$graphicsvg$GraphicSVG$App$JustDown)) {
+					if (!before.b) {
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									qZip: $author$project$Main$sLeft(model.qZip),
+									time: t
+								}),
+							$author$project$Main$sendSpeech(current));
+					} else {
+						var x = before.a;
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									qZip: $author$project$Main$sLeft(model.qZip),
+									time: t
+								}),
+							$author$project$Main$sendSpeech(x));
+					}
+				} else {
+					if (_Utils_eq(
+						getKeyState($MacCASOutreach$graphicsvg$GraphicSVG$App$Backspace),
+						$MacCASOutreach$graphicsvg$GraphicSVG$App$JustDown)) {
+						if (!before.b) {
+							return _Utils_Tuple2(
+								_Utils_update(
+									model,
+									{
+										qZip: $author$project$Main$sBackspace(model.qZip),
+										time: t
+									}),
+								$author$project$Main$sendSpeech(current));
+						} else {
+							return _Utils_Tuple2(
+								_Utils_update(
+									model,
+									{
+										qZip: $author$project$Main$sBackspace(model.qZip),
+										time: t
+									}),
+								$author$project$Main$sendSpeech('deleted ' + current));
+						}
+					} else {
+						if (_Utils_eq(
+							getKeyState($MacCASOutreach$graphicsvg$GraphicSVG$App$Delete),
+							$MacCASOutreach$graphicsvg$GraphicSVG$App$JustDown)) {
+							if (!after.b) {
+								return _Utils_Tuple2(
+									_Utils_update(
+										model,
+										{
+											qZip: $author$project$Main$sDelete(model.qZip),
+											time: t
+										}),
+									$author$project$Main$sendSpeech(current));
+							} else {
+								return _Utils_Tuple2(
+									_Utils_update(
+										model,
+										{
+											qZip: $author$project$Main$sDelete(model.qZip),
+											time: t
+										}),
+									$author$project$Main$sendSpeech('deleted ' + current));
+							}
+						} else {
+							return _Utils_Tuple2(
+								_Utils_update(
+									model,
+									{
+										qZip: A3($author$project$Main$SZip, before, current, after),
+										time: t
+									}),
+								$elm$core$Platform$Cmd$none);
+						}
+					}
+				}
+			}
+		} else {
+			return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 		}
 	});
 var $MacCASOutreach$graphicsvg$GraphicSVG$collage = F3(
 	function (w, h, shapes) {
 		return A3($MacCASOutreach$graphicsvg$GraphicSVG$Collage, w, h, shapes);
 	});
-var $MacCASOutreach$graphicsvg$GraphicSVG$green = A4($MacCASOutreach$graphicsvg$GraphicSVG$rgba, 115, 210, 22, 1);
-var $MacCASOutreach$graphicsvg$GraphicSVG$Secret$Path = function (a) {
-	return {$: 'Path', a: a};
-};
-var $MacCASOutreach$graphicsvg$GraphicSVG$line = F2(
-	function (p1, p2) {
-		return $MacCASOutreach$graphicsvg$GraphicSVG$Secret$Path(
-			_List_fromArray(
-				[p1, p2]));
+var $MacCASOutreach$graphicsvg$GraphicSVG$Secret$NoLine = {$: 'NoLine'};
+var $MacCASOutreach$graphicsvg$GraphicSVG$blank = A4($MacCASOutreach$graphicsvg$GraphicSVG$rgba, 0, 0, 0, 0);
+var $MacCASOutreach$graphicsvg$GraphicSVG$subtract = F2(
+	function (shape1, shape2) {
+		return A2($MacCASOutreach$graphicsvg$GraphicSVG$Secret$AlphaMask, shape1, shape2);
 	});
-var $MacCASOutreach$graphicsvg$GraphicSVG$outlined = F3(
-	function (style, outlineClr, stencil) {
-		var lineStyle = function () {
-			if (style.$ === 'NoLine') {
-				return $elm$core$Maybe$Nothing;
-			} else {
-				return $elm$core$Maybe$Just(
-					_Utils_Tuple2(style, outlineClr));
+var $MacCASOutreach$graphicsvg$GraphicSVG$addOutline = F3(
+	function (style, outlineClr, shape) {
+		addOutline:
+		while (true) {
+			var lineStyle = function () {
+				if (style.$ === 'NoLine') {
+					return $elm$core$Maybe$Nothing;
+				} else {
+					return $elm$core$Maybe$Just(
+						_Utils_Tuple2(style, outlineClr));
+				}
+			}();
+			switch (shape.$) {
+				case 'Inked':
+					var clr = shape.a;
+					var st = shape.c;
+					return A3($MacCASOutreach$graphicsvg$GraphicSVG$Secret$Inked, clr, lineStyle, st);
+				case 'Move':
+					var s = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Move,
+						s,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'Rotate':
+					var r = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Rotate,
+						r,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'Scale':
+					var sx = shape.a;
+					var sy = shape.b;
+					var sh = shape.c;
+					return A3(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Scale,
+						sx,
+						sy,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'Skew':
+					var skx = shape.a;
+					var sky = shape.b;
+					var sh = shape.c;
+					return A3(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Skew,
+						skx,
+						sky,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'Transformed':
+					var tm = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Transformed,
+						tm,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'Group':
+					var list = shape.a;
+					var innerlist = A2(
+						$elm$core$List$filterMap,
+						function (shp) {
+							if (shp.$ === 'GroupOutline') {
+								return $elm$core$Maybe$Nothing;
+							} else {
+								return $elm$core$Maybe$Just(
+									A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, $MacCASOutreach$graphicsvg$GraphicSVG$Secret$NoLine, $MacCASOutreach$graphicsvg$GraphicSVG$black, shp));
+							}
+						},
+						list);
+					if (!innerlist.b) {
+						return $MacCASOutreach$graphicsvg$GraphicSVG$Secret$Group(_List_Nil);
+					} else {
+						if (!innerlist.b.b) {
+							var hd = innerlist.a;
+							var $temp$style = style,
+								$temp$outlineClr = outlineClr,
+								$temp$shape = hd;
+							style = $temp$style;
+							outlineClr = $temp$outlineClr;
+							shape = $temp$shape;
+							continue addOutline;
+						} else {
+							if (_Utils_eq(lineStyle, $elm$core$Maybe$Nothing)) {
+								return $MacCASOutreach$graphicsvg$GraphicSVG$Secret$Group(innerlist);
+							} else {
+								var outlnshp = $MacCASOutreach$graphicsvg$GraphicSVG$Secret$GroupOutline(
+									A2(
+										$MacCASOutreach$graphicsvg$GraphicSVG$subtract,
+										$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Group(innerlist),
+										$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Group(
+											A2(
+												$elm$core$List$map,
+												A2($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr),
+												innerlist))));
+								return $MacCASOutreach$graphicsvg$GraphicSVG$Secret$Group(
+									_Utils_ap(
+										innerlist,
+										_List_fromArray(
+											[outlnshp])));
+							}
+						}
+					}
+				case 'GroupOutline':
+					var cmbndshp = shape.a;
+					return $MacCASOutreach$graphicsvg$GraphicSVG$Secret$GroupOutline(cmbndshp);
+				case 'AlphaMask':
+					var reg = shape.a;
+					var sh = shape.b;
+					var ptrn = A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, $MacCASOutreach$graphicsvg$GraphicSVG$Secret$NoLine, $MacCASOutreach$graphicsvg$GraphicSVG$black, reg);
+					var inside = A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, $MacCASOutreach$graphicsvg$GraphicSVG$Secret$NoLine, $MacCASOutreach$graphicsvg$GraphicSVG$black, sh);
+					if (_Utils_eq(lineStyle, $elm$core$Maybe$Nothing)) {
+						return A2($MacCASOutreach$graphicsvg$GraphicSVG$Secret$AlphaMask, ptrn, inside);
+					} else {
+						var ptrnlnd = A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, reg);
+						var ptrnoutln = A2($MacCASOutreach$graphicsvg$GraphicSVG$Secret$Clip, inside, ptrnlnd);
+						var newshp = A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh);
+						var shpoutln = A2($MacCASOutreach$graphicsvg$GraphicSVG$Secret$Clip, inside, newshp);
+						return A2(
+							$MacCASOutreach$graphicsvg$GraphicSVG$Secret$AlphaMask,
+							ptrn,
+							$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Group(
+								_List_fromArray(
+									[
+										inside,
+										$MacCASOutreach$graphicsvg$GraphicSVG$Secret$GroupOutline(
+										$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Group(
+											_List_fromArray(
+												[shpoutln, ptrnoutln])))
+									])));
+					}
+				case 'Clip':
+					var reg = shape.a;
+					var sh = shape.b;
+					var ptrn = A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, $MacCASOutreach$graphicsvg$GraphicSVG$Secret$NoLine, $MacCASOutreach$graphicsvg$GraphicSVG$black, reg);
+					var inside = A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, $MacCASOutreach$graphicsvg$GraphicSVG$Secret$NoLine, $MacCASOutreach$graphicsvg$GraphicSVG$black, sh);
+					if (_Utils_eq(lineStyle, $elm$core$Maybe$Nothing)) {
+						return A2($MacCASOutreach$graphicsvg$GraphicSVG$Secret$Clip, ptrn, inside);
+					} else {
+						var ptrnlnd = A3(
+							$MacCASOutreach$graphicsvg$GraphicSVG$addOutline,
+							style,
+							outlineClr,
+							A2($MacCASOutreach$graphicsvg$GraphicSVG$repaint, $MacCASOutreach$graphicsvg$GraphicSVG$blank, reg));
+						var ptrnoutln = A2($MacCASOutreach$graphicsvg$GraphicSVG$Secret$Clip, inside, ptrnlnd);
+						var newshp = A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh);
+						var shpoutln = A2($MacCASOutreach$graphicsvg$GraphicSVG$Secret$Clip, inside, newshp);
+						return A2(
+							$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Clip,
+							ptrn,
+							$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Group(
+								_List_fromArray(
+									[
+										inside,
+										$MacCASOutreach$graphicsvg$GraphicSVG$Secret$GroupOutline(
+										$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Group(
+											_List_fromArray(
+												[shpoutln, ptrnoutln])))
+									])));
+					}
+				case 'Link':
+					var s = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Link,
+						s,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'Tap':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Tap,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'TapAt':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$TapAt,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'EnterShape':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$EnterShape,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'EnterAt':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$EnterAt,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'Exit':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Exit,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'ExitAt':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$ExitAt,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'MouseDown':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$MouseDown,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'MouseDownAt':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$MouseDownAt,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'MouseUp':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$MouseUp,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'MouseUpAt':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$MouseUpAt,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'MoveOverAt':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$MoveOverAt,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'TouchStart':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$TouchStart,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'TouchEnd':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$TouchEnd,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'TouchStartAt':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$TouchStartAt,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'TouchEndAt':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$TouchEndAt,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'TouchMoveAt':
+					var userMsg = shape.a;
+					var sh = shape.b;
+					return A2(
+						$MacCASOutreach$graphicsvg$GraphicSVG$Secret$TouchMoveAt,
+						userMsg,
+						A3($MacCASOutreach$graphicsvg$GraphicSVG$addOutline, style, outlineClr, sh));
+				case 'ForeignObject':
+					var w = shape.a;
+					var h = shape.b;
+					var htm = shape.c;
+					return A3($MacCASOutreach$graphicsvg$GraphicSVG$Secret$ForeignObject, w, h, htm);
+				case 'Everything':
+					return $MacCASOutreach$graphicsvg$GraphicSVG$Secret$Everything;
+				case 'Notathing':
+					return $MacCASOutreach$graphicsvg$GraphicSVG$Secret$Notathing;
+				default:
+					var s = shape.a;
+					var th = shape.b;
+					var clr = shape.c;
+					return A3($MacCASOutreach$graphicsvg$GraphicSVG$Secret$GraphPaper, s, th, clr);
 			}
-		}();
-		return A3($MacCASOutreach$graphicsvg$GraphicSVG$Secret$Inked, $elm$core$Maybe$Nothing, lineStyle, stencil);
+		}
+	});
+var $MacCASOutreach$graphicsvg$GraphicSVG$blue = A4($MacCASOutreach$graphicsvg$GraphicSVG$rgba, 52, 101, 164, 1);
+var $author$project$Main$positionWords = F2(
+	function (start, words) {
+		return $elm$core$List$reverse(
+			A3(
+				$elm$core$List$foldl,
+				F2(
+					function (word, _v0) {
+						var accum = _v0.a;
+						var pos = _v0.b;
+						var wordWidth = $elm$core$String$length(word) * 10;
+						var newPos = pos + wordWidth;
+						var newItem = _Utils_Tuple2(word, pos);
+						return _Utils_Tuple2(
+							A2($elm$core$List$cons, newItem, accum),
+							newPos);
+					}),
+				_Utils_Tuple2(_List_Nil, start),
+				words).a);
 	});
 var $MacCASOutreach$graphicsvg$GraphicSVG$Secret$Unbroken = function (a) {
 	return {$: 'Unbroken', a: a};
 };
 var $MacCASOutreach$graphicsvg$GraphicSVG$solid = function (th) {
 	return $MacCASOutreach$graphicsvg$GraphicSVG$Secret$Unbroken(th);
+};
+var $MacCASOutreach$graphicsvg$GraphicSVG$Secret$Face = F8(
+	function (a, b, c, d, e, f, g, h) {
+		return {$: 'Face', a: a, b: b, c: c, d: d, e: e, f: f, g: g, h: h};
+	});
+var $MacCASOutreach$graphicsvg$GraphicSVG$Secret$FixedWidth = {$: 'FixedWidth'};
+var $MacCASOutreach$graphicsvg$GraphicSVG$Secret$Text = F2(
+	function (a, b) {
+		return {$: 'Text', a: a, b: b};
+	});
+var $MacCASOutreach$graphicsvg$GraphicSVG$fixedwidth = function (stencil) {
+	if (stencil.$ === 'Text') {
+		var _v1 = stencil.a;
+		var si = _v1.a;
+		var bo = _v1.b;
+		var i = _v1.c;
+		var u = _v1.d;
+		var s = _v1.e;
+		var sel = _v1.f;
+		var f = _v1.g;
+		var c = _v1.h;
+		var str = stencil.b;
+		return A2(
+			$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Text,
+			A8($MacCASOutreach$graphicsvg$GraphicSVG$Secret$Face, si, bo, i, u, s, sel, $MacCASOutreach$graphicsvg$GraphicSVG$Secret$FixedWidth, c),
+			str);
+	} else {
+		var a = stencil;
+		return a;
+	}
+};
+var $MacCASOutreach$graphicsvg$GraphicSVG$Secret$AlignLeft = {$: 'AlignLeft'};
+var $MacCASOutreach$graphicsvg$GraphicSVG$Secret$Serif = {$: 'Serif'};
+var $MacCASOutreach$graphicsvg$GraphicSVG$text = function (str) {
+	return A2(
+		$MacCASOutreach$graphicsvg$GraphicSVG$Secret$Text,
+		A8($MacCASOutreach$graphicsvg$GraphicSVG$Secret$Face, 12, false, false, false, false, false, $MacCASOutreach$graphicsvg$GraphicSVG$Secret$Serif, $MacCASOutreach$graphicsvg$GraphicSVG$Secret$AlignLeft),
+		str);
+};
+var $author$project$Main$viewPositionedWord = function (_v0) {
+	var word = _v0.a;
+	var x = _v0.b;
+	return A2(
+		$MacCASOutreach$graphicsvg$GraphicSVG$move,
+		_Utils_Tuple2(x, 0),
+		A2(
+			$MacCASOutreach$graphicsvg$GraphicSVG$filled,
+			$MacCASOutreach$graphicsvg$GraphicSVG$black,
+			$MacCASOutreach$graphicsvg$GraphicSVG$fixedwidth(
+				$MacCASOutreach$graphicsvg$GraphicSVG$text(word))));
+};
+var $author$project$Main$viewWord = function (word) {
+	return A2(
+		$MacCASOutreach$graphicsvg$GraphicSVG$filled,
+		$MacCASOutreach$graphicsvg$GraphicSVG$black,
+		$MacCASOutreach$graphicsvg$GraphicSVG$fixedwidth(
+			$MacCASOutreach$graphicsvg$GraphicSVG$text(word)));
+};
+var $author$project$Main$viewZipper = function (_v0) {
+	var before = _v0.a;
+	var current = _v0.b;
+	var after = _v0.c;
+	var start = 0;
+	var beforeWords = $elm$core$List$reverse(before);
+	var offsetBefore = A3(
+		$elm$core$List$foldl,
+		F2(
+			function (w, acc) {
+				return acc + ($elm$core$String$length(w) * 10);
+			}),
+		0,
+		beforeWords);
+	var currentShape = A3(
+		$MacCASOutreach$graphicsvg$GraphicSVG$addOutline,
+		$MacCASOutreach$graphicsvg$GraphicSVG$solid(0.5),
+		$MacCASOutreach$graphicsvg$GraphicSVG$blue,
+		A2(
+			$MacCASOutreach$graphicsvg$GraphicSVG$move,
+			_Utils_Tuple2(offsetBefore, 0),
+			$author$project$Main$viewWord(current)));
+	var positionedAfter = A2(
+		$author$project$Main$positionWords,
+		offsetBefore + ($elm$core$String$length(current) * 10),
+		after);
+	var positionedBefore = A2($author$project$Main$positionWords, start, beforeWords);
+	var beforeShapes = A2($elm$core$List$map, $author$project$Main$viewPositionedWord, positionedBefore);
+	var afterShapes = A2($elm$core$List$map, $author$project$Main$viewPositionedWord, positionedAfter);
+	return A2(
+		$MacCASOutreach$graphicsvg$GraphicSVG$move,
+		_Utils_Tuple2(-50, 0),
+		$MacCASOutreach$graphicsvg$GraphicSVG$group(
+			_Utils_ap(
+				beforeShapes,
+				A2($elm$core$List$cons, currentShape, afterShapes))));
 };
 var $author$project$Main$view = function (model) {
 	return {
@@ -8875,14 +9449,7 @@ var $author$project$Main$view = function (model) {
 			500,
 			_List_fromArray(
 				[
-					A3(
-					$MacCASOutreach$graphicsvg$GraphicSVG$outlined,
-					$MacCASOutreach$graphicsvg$GraphicSVG$solid(1),
-					$MacCASOutreach$graphicsvg$GraphicSVG$green,
-					A2(
-						$MacCASOutreach$graphicsvg$GraphicSVG$line,
-						_Utils_Tuple2(0, 0),
-						_Utils_Tuple2(250, 0)))
+					$author$project$Main$viewZipper(model.qZip)
 				])),
 		title: 'App'
 	};
